@@ -77,6 +77,12 @@ class NGSISource extends VectorSource {
      */
     this.entityType_ = options.entityType;
 
+    /**
+     * @private
+     * @type {import('ol/proj.js').ProjectionLike}
+     */
+    this.dataProjection_ = options.dataProjection || 'EPSG:4326';
+
   }
 
   getUrl() {
@@ -85,6 +91,40 @@ class NGSISource extends VectorSource {
 
   getEntityType() {
     return this.entityType_;
+  }
+
+  /**
+   * Listen for feature changes
+   *
+   * @param {string} eventSourceUrl
+   */
+  addSubscription(eventSourceUrl) {
+    const sse = new EventSource(eventSourceUrl);
+    sse.addEventListener('notification', (e) => {
+      const data = JSON.parse(e.data);
+      const payload = JSON.parse(data.payload);
+      const entities = payload.data;
+      const format = new NGSIFormat();
+      /** @type {Connection} */
+      const connection = new Connection(this.getUrl());
+      entities.forEach(async ({ id }) => {
+        const { entity } = await connection.v2.getEntity({
+          id: id
+        });
+        const feature = this.getFeatureById(id);
+        const newFeature = format.readFeature(entity, {
+          dataProjection: this.dataProjection_,
+          featureProjection: this.getProjection()
+        });
+        if (!feature) {
+          this.addFeature(newFeature);
+        } else {
+          const geom = feature.getGeometry();
+          feature.setProperties(newFeature.getProperties(), true);
+          feature.setGeometry(geom);
+        }
+      });
+    });
   }
 
 }
