@@ -13,11 +13,11 @@ Requirements
 
 First clone the repository
 
-    git clone https://github.com/msgis/fiware-gis-quickstart.git
+    git clone https://github.com/msgis/ol-fiware.git
 
 and then run docker to start the app
 
-    cd fiware-gis-quickstart
+    cd ol-fiware
     docker compose up
 
 The application is accessible on <http://localhost:1234> after docker has finished the build.
