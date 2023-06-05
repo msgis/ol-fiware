@@ -74,6 +74,7 @@ export default function AddEntities() {
     map.addLayer(layer);
     if (subscribeToEventSource) {
       source.addSubscription(eventSourceUrl);
+      addAlertAnimationToSource(layer);
     }
     setShow(false);
   };
