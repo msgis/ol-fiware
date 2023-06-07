@@ -10,6 +10,7 @@ import { useMap } from '../hooks/useMap';
 
 import './AddEntities.css';
 import { addAlertAnimationToSource } from '../lib/ol-alert-animation';
+import { setSpecialLayerStyle } from '../lib/ol-layer-style';
 
 export default function AddEntities() {
 
@@ -71,6 +72,7 @@ export default function AddEntities() {
       name: entityType.split('/').pop(),
       source: source
     });
+    setSpecialLayerStyle(layer);
     map.addLayer(layer);
     if (subscribeToEventSource) {
       source.addSubscription(eventSourceUrl);
