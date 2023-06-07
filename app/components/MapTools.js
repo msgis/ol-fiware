@@ -13,9 +13,9 @@ export default function MapTools() {
   const [layer, setLayer] = useState(null);
 
   const handleEntitySelected = (e) => {
-    const feature = e.target.getFeatures().getArray()[0];
+    const feature = e.target.getFeatures().getArray()[0] || null;
     setEntity(feature);
-    setLayer(e.target.getLayer(feature));
+    setLayer(feature ? e.target.getLayer(feature) : null);
   };
 
   return (
