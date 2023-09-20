@@ -22,4 +22,9 @@ and then run docker to start the app
 
 The application is accessible on <http://localhost:1234> after docker has finished the build.
 
-# Contribution
+## Contributing
+
+Everyone is invited to get involved and contribute to the project.
+
+Simply create a [fork and pull request](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) for code contributions or
+feel free to [open an issue](https://github.com/msgis/ol-fiware/issues) for any other contributions or issues.
