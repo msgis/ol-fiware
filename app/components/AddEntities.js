@@ -13,12 +13,11 @@ import { addAlertAnimationToSource } from '../lib/ol-alert-animation';
 import { setSpecialLayerStyle } from '../lib/ol-layer-style';
 
 export default function AddEntities() {
-
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [url, setUrl] = useState('http://localhost:2026');
+  const [url, setUrl] = useState(process.env.NGSI_URL || 'http://localhost:1026');
   const handleUrlChanged = (e) => {
     e.preventDefault();
     setUrl(e.target.value);

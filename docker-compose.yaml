@@ -1,6 +1,9 @@
 
 services:
   app:
-    build: ./
+    build:
+      context: .
+      args:
+        - NGSI_URL=http://localhost:2026
     ports:
       - "1234:80"

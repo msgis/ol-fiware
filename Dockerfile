@@ -1,5 +1,8 @@
 FROM node:18-alpine as build
 
+ARG NGSI_URL
+ENV NGSI_URL $NGSI_URL
+
 WORKDIR /usr/src/app
 
 # Install app dependencies

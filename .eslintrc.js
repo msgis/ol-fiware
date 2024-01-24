@@ -5,6 +5,9 @@ module.exports = {
     'es6': true,
     'node': false
   },
+  'globals': {
+    'process': true
+  },
   'plugins': [
     'react'
   ],
