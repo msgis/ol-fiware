@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:18-alpine as build
 
 WORKDIR /usr/src/app
 
@@ -9,4 +9,8 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-CMD [ "npm", "start" ]
+# Build app
+RUN npm run build
+
+FROM nginx
+COPY --from=build /usr/src/app/dist/* /usr/share/nginx/html
