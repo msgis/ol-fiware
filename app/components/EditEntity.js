@@ -4,8 +4,30 @@ import Form from 'react-bootstrap/Form';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import NGSI from '../../ol/format/NGSI';
 import axios from 'axios';
+import JsonEditor from './JsonEditor.js';
 
 import './EditEntity.css';
+
+/**
+ * Entity attribute input control
+ *
+ * @param {object} props
+ * @param {*} props.value
+ * @param {Function} props.onChange
+ * @returns
+ */
+function AttributeInput({ value, onChange }) {
+
+  if (typeof(value) === 'object') {
+    return (
+      <JsonEditor defaultValue={value} onChange={onChange}/>
+    );
+  }
+  return (
+    <Form.Control type="text" value={value} onChange={onChange}/>
+  );
+
+}
 
 /**
  * Edit entity feature form
@@ -67,10 +89,11 @@ function EditEntityForm({ entity, layer }) {
       </Form.Group>
       {
         keys.map((key) => {
+          const value = properties[key];
           return (
             <Form.Group key={key} className="mb-3">
               <Form.Label>{friendlyKey(key)}</Form.Label>
-              <Form.Control type="text" value={properties[key]} onChange={handlePropertyChanged.bind(this, key)}/>
+              <AttributeInput value={value} onChange={handlePropertyChanged.bind(this, key)}/>
             </Form.Group>
           );
         })
