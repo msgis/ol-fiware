@@ -31,5 +31,9 @@
     "stream-http": "^3.2.0",
     "url": "^0.11.3"
   },
-  "browserslist": "defaults"
+  "browserslist": "defaults",
+  "volta": {
+    "node": "20.12.1",
+    "npm": "10.5.1"
+  }
 }
