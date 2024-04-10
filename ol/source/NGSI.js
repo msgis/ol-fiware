@@ -108,7 +108,7 @@ class NGSISource extends VectorSource {
       /** @type {Connection} */
       const connection = new Connection(this.getUrl());
       entities.forEach(async ({ id }) => {
-        const { entity } = await connection.v2.getEntity({
+        const { entity } = await connection.ld.getEntity({
           id: id
         });
         const feature = this.getFeatureById(id);
@@ -182,7 +182,7 @@ async function fetchAllEntities(connection, type) {
   let offset = 0;
   const limit = 1000;
   do {
-    response = await connection.v2.listEntities({
+    response = await connection.ld.queryEntities({
       type: type,
       limit: limit,
       offset: offset
