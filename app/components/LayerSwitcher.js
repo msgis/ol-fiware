@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Col, Row } from 'react-bootstrap';
 import { useMap } from '../hooks/useMap';
+import { useLayers } from '../hooks/useLayers';
 
 import './LayerSwitcher.css';
 
@@ -14,26 +15,24 @@ export default function LayerSwitcher() {
   const handleShow = () => setShow(true);
 
   const map = useMap();
-  const [layers, setLayers] = useState(map.getAllLayers());
+  const { layers, findLayer } = useLayers();
 
   /**
    *
    * @param {import('ol/layer/Layer.js').default} layer
    */
-  const handleLayerChanged = (layer) => {
+  const handleLayerChanged = ({ name }) => {
+    const layer = findLayer(name);
     layer.setVisible(!layer.getVisible());
-    // TODO: use useEffect instead of state to rerender?
-    setLayers(map.getAllLayers());
   };
 
   /**
    *
    * @param {import('ol/layer/Layer.js').default} layer
    */
-  const handleRemoveLayer = (layer) => {
+  const handleRemoveLayer = ({ name }) => {
+    const layer = findLayer(name);
     map.removeLayer(layer);
-    // TODO: use useEffect instead of state to rerender?
-    setLayers(map.getAllLayers());
   };
 
   return (
@@ -49,11 +48,11 @@ export default function LayerSwitcher() {
           <Form className="layer-switcher-form">
             {
               layers.map((layer, index) => {
-                const name = layer.get('name');
+                const name = layer.name;
                 return (
                   <Row key={index} className="mb-3">
                     <Form.Group as={Col} controlId={`layer-visible-${index}`} >
-                      <Form.Check type="checkbox" label={name} checked={layer.getVisible()} onChange={handleLayerChanged.bind(null, layer)} />
+                      <Form.Check type="checkbox" label={name} checked={layer.visible} onChange={handleLayerChanged.bind(null, layer)} />
                     </Form.Group>
                     <Form.Group as={Col} >
                       <Button variant="danger" size="sm" onClick={handleRemoveLayer.bind(null, layer)}>
