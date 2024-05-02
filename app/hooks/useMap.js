@@ -2,6 +2,9 @@ import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import OLCesium from 'olcs';
+const Cesium = window.Cesium;
+
+Cesium.Ion.defaultAccessToken = process.env.OLCS_ION_TOKEN;
 
 /** @type {Map} */
 let map;
@@ -30,12 +33,21 @@ export function useMap() {
   return map;
 }
 
+function createMap3D() {
+  const map3d = new OLCesium({ map });
+  const scene = map3d.getCesiumScene();
+  Cesium.Cesium3DTileset.fromIonAssetId(2275207).then((tileset) => {
+    scene.primitives.add(tileset);
+  });
+  return map3d;
+}
+
 export function useMap3D() {
   if (!map) {
     map = createMap();
   }
   if (!map3d) {
-    map3d = new OLCesium({ map });
+    map3d = createMap3D();
   }
   return map3d;
 }
