@@ -3,6 +3,9 @@ FROM node:20-alpine as build
 ARG NGSI_URL
 ENV NGSI_URL $NGSI_URL
 
+ARG OLCS_ION_TOKEN
+ENV OLCS_ION_TOKEN $OLCS_ION_TOKEN
+
 WORKDIR /usr/src/app
 
 # Install app dependencies
