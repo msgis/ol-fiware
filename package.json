@@ -13,6 +13,7 @@
     "deep-equal": "^2.2.3",
     "ngsijs": "^1.5.0-rc.0",
     "ol": "^9.1.0",
+    "olcs": "^2.20.0",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.2",
     "react-bootstrap-icons": "^1.11.4",

@@ -1,9 +1,12 @@
 import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
+import OLCesium from 'olcs';
 
 /** @type {Map} */
 let map;
+
+let map3d;
 
 function createMap() {
   return new Map({
@@ -25,4 +28,14 @@ export function useMap() {
     map = createMap();
   }
   return map;
+}
+
+export function useMap3D() {
+  if (!map) {
+    map = createMap();
+  }
+  if (!map3d) {
+    map3d = new OLCesium({ map });
+  }
+  return map3d;
 }

@@ -4,6 +4,7 @@ import AddEntities from './AddEntities';
 import LayerSwitcher from './LayerSwitcher';
 import SelectEntity from './SelectEntity';
 import EditEntity from './EditEntity';
+import SwitchMapMode from './SwitchMapMode';
 
 import './MapTools.css';
 
@@ -22,6 +23,7 @@ export default function MapTools() {
     <Stack gap={2} className="mx-auto map-tools">
       <AddEntities />
       <LayerSwitcher />
+      <SwitchMapMode />
       <SelectEntity onSelect={handleEntitySelected} />
       <EditEntity entity={entity} layer={layer} />
     </Stack>
