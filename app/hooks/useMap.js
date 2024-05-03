@@ -36,7 +36,7 @@ export function useMap() {
 function createMap3D() {
   const map3d = new OLCesium({ map });
   const scene = map3d.getCesiumScene();
-  Cesium.Cesium3DTileset.fromIonAssetId(2275207).then((tileset) => {
+  Cesium.Cesium3DTileset.fromIonAssetId(96188).then((tileset) => {
     scene.primitives.add(tileset);
   });
   return map3d;
