@@ -1,5 +1,5 @@
 import NGSISource from '../../ol/source/NGSI';
-import {Icon, Style} from 'ol/style.js';
+import {Icon, Style, Circle, Fill, Stroke} from 'ol/style.js';
 import SchwimmbadBlau from '../assets/schwimmbad_blau.png';
 import SchwimmbadOrange from '../assets/schwimmbad_orange.png';
 import SchwimmbadRot from '../assets/schwimmbad_rot.png';
@@ -24,6 +24,29 @@ const styles = {
       }),
     });
     return style;
+  },
+  'WaterQualityObserved': function (feature) {
+    const pH = feature.get('pH') || 0;
+    const color = pH < 6 ? 'rgba(225,94,44,0.8)' : pH > 9 ? 'rgba(172,44,255,0.8)' : 'rgba(87,146,233,0.8)';
+    const fill = new Fill({
+      color: color,
+    });
+    const stroke = new Stroke({
+      color: 'black',
+      width: 1.25,
+    });
+    const styles = [
+      new Style({
+        image: new Circle({
+          fill: fill,
+          stroke: stroke,
+          radius: 7,
+        }),
+        fill: fill,
+        stroke: stroke,
+      }),
+    ];
+    return styles;
   }
 };
 
